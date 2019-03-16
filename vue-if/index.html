@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div v-if="ok">yes</div>
+    <div v-else>no</div>
+
+    <div v-if="type=='A'">A</div>
+    <div v-else-if="type=='B'">B</div>
+    <div v-else-if="type=='C'">C</div>
+    <div v-else>null</div>
+</div>
+<script type="text/javascript">
+    var vm =new Vue({
+        el:'#app',
+        data:{
+            ok: true,
+            type: "A"
+        }
+    });
+</script>
+</body>
+</html>

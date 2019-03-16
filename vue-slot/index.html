@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue内容分发与自定义事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <todo>
+        <todo-title slot="todo-title" v-bind:title="todotititle"></todo-title>
+        <todo-items slot="todo-items" v-for="(item,i) in todoitems" v-bind:item="item" v-bind:index="i" @remove1="removeitems(i)"></todo-items>
+    </todo>
+</div>
+<script type="text/javascript">
+    Vue.component("todo",{
+       template:"<div>\
+                    <slot name='todo-title'></slot>\
+                 <ul>\
+                    <slot name='todo-items'></slot>\
+                 </ul>\
+                 </div>\
+       "
+    });
+
+    Vue.component("todo-title",{
+        props:['title'],
+       template:"<div>{{title}}</div>"
+    });
+
+    Vue.component("todo-items",{
+        props:['item','index'],
+        template:"<li>{{index}}-{{item}} <button @click='remove()'>删除</button></li>",
+        methods:{
+            remove:function () {
+                this.$emit("remove1");
+            }
+        }
+    });
+    var vm =new Vue({
+        el:'#app',
+        data:{
+            todoitems: ["1","2","3"],
+            todotititle:"标题",
+        },
+        methods:{
+            removeitems:function (index) {
+                //从index位置删除一条数据
+                this.todoitems.splice(index,1);
+            }
+        }
+
+    });
+</script>
+</body>
+</html>
